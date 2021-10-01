@@ -1,3 +1,4 @@
+import data.*
 import junit.framework.Assert.assertEquals
 import org.junit.Test
 
@@ -12,6 +13,9 @@ class WallServiceTest {
     val firstViews = Views(
         count = 1
     )
+    val firstVideo = AttachmentVideo (player = null)
+    val firstPhoto = AttachmentPhoto (sizes = null)
+    val firstAttachment = arrayOf(firstPhoto, firstVideo)
 
     val firstPost = Post(
         id = 1,
@@ -19,7 +23,8 @@ class WallServiceTest {
         likes = firstLikes,
         reposts = firstReposts,
         views = firstViews,
-        postType = PostType.POST
+        postType = PostType.POST,
+        attachment = firstAttachment
     )
 
     @Test
@@ -55,7 +60,8 @@ class WallServiceTest {
             likes = firstLikes,
             reposts = firstReposts,
             views = firstViews,
-            postType = PostType.POST
+            postType = PostType.POST,
+            attachment = firstAttachment
         )
         assertEquals(false, WallService.update(secondPost))
     }

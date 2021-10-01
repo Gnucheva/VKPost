@@ -1,3 +1,5 @@
+import data.Post
+
 object WallService {
     private var posts = emptyArray<Post>()
     private var nextId: Int = 0
@@ -13,11 +15,12 @@ object WallService {
         for (updatePost in posts) {
             if (updatePost.id == post.id) {
                 updatePost.text = "some text"
-                println("Post update")
+                println("data.Post update")
                 return true
             }
             break
         }
+        println("Failed to update post")
         return false
     }
 }

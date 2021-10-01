@@ -1,3 +1,5 @@
+import data.*
+
 fun main() {
     val firstComments = Comments(
         canPost = true
@@ -9,6 +11,9 @@ fun main() {
     val firstViews = Views(
         count = 1
     )
+    val firstVideo = AttachmentVideo (player = null)
+    val firstPhoto = AttachmentPhoto (sizes = null)
+    val firstAttachment = arrayOf(firstPhoto, firstVideo)
 
     val firstPost = Post(
         id = 1,
@@ -16,7 +21,8 @@ fun main() {
         likes = firstLikes,
         reposts = firstReposts,
         views = firstViews,
-        postType = PostType.POST
+        postType = PostType.POST,
+        attachment = firstAttachment
     )
 
     println(firstPost)

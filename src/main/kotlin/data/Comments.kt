@@ -1,3 +1,5 @@
+package data
+
 data class Comments(
     var count: Int = 0,
     var canPost: Boolean = false,
