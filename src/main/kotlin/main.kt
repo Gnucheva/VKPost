@@ -11,8 +11,8 @@ fun main() {
     val firstViews = Views(
         count = 1
     )
-    val firstVideo = AttachmentVideo (player = null)
-    val firstPhoto = AttachmentPhoto (sizes = null)
+    val firstVideo = AttachmentVideo(player = null)
+    val firstPhoto = AttachmentPhoto(sizes = null)
     val firstAttachment = arrayOf(firstPhoto, firstVideo)
 
     val firstPost = Post(
