@@ -1,6 +1,13 @@
 import data.*
 
 fun main() {
+    var attachments = emptyArray<Attachment>()
+    val audio = Audio(
+        1, 1, "One", "Audio", "FirstAudio"
+    )
+    val audioAttachment = AudioAttachment(audio = audio)
+    attachments += audioAttachment
+
     val firstComments = Comments(
         canPost = true
     )
@@ -11,18 +18,34 @@ fun main() {
     val firstViews = Views(
         count = 1
     )
-    val firstVideo = AttachmentVideo(player = null)
-    val firstPhoto = AttachmentPhoto(sizes = null)
-    val firstAttachment = arrayOf(firstPhoto, firstVideo)
 
     val firstPost = Post(
         id = 1,
+        ownerId = 1,
+        fromId = 1,
+        createdBy = 1,
+        date = 1234,
+        text = "Hello",
+        replyOwnerId = 2,
+        replyPostId = 2,
+        friendsOnly = false,
         comments = firstComments,
+        copyright = "5",
         likes = firstLikes,
         reposts = firstReposts,
         views = firstViews,
         postType = PostType.POST,
-        attachment = firstAttachment
+        postSource = null,
+        attachment = attachments,
+        geo = null,
+        copyHistory = null,
+        canPin = true,
+        canDelete = true,
+        canEdit = true,
+        isPinned = true,
+        markedAsAds = true,
+        isFavorite = true,
+        postponedId = 4
     )
 
     println(firstPost)
