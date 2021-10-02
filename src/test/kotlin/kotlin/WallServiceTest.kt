@@ -13,9 +13,6 @@ class WallServiceTest {
     val firstViews = Views(
         count = 1
     )
-    val firstVideo = AttachmentVideo(player = null)
-    val firstPhoto = AttachmentPhoto(sizes = null)
-    val firstAttachment = arrayOf(firstPhoto, firstVideo)
 
     val firstPost = Post(
         id = 1,
@@ -24,7 +21,7 @@ class WallServiceTest {
         reposts = firstReposts,
         views = firstViews,
         postType = PostType.POST,
-        attachment = firstAttachment
+        attachment = null
     )
 
     @Test
@@ -61,7 +58,7 @@ class WallServiceTest {
             reposts = firstReposts,
             views = firstViews,
             postType = PostType.POST,
-            attachment = firstAttachment
+            attachment = null
         )
         assertEquals(false, WallService.update(secondPost))
     }
