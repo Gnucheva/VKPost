@@ -1,65 +1,77 @@
 import data.*
-import junit.framework.Assert.assertEquals
+import org.junit.Assert.*
 import org.junit.Test
 
 class WallServiceTest {
-    val firstComments = Comments(
-        canPost = true
-    )
-    val firstLikes = Likes(
-        canLike = true
-    )
-    val firstReposts = Reposts()
-    val firstViews = Views(
-        count = 1
+    val copyright = Copyright()
+    val reposts = Reposts()
+    val views = Views()
+
+    val post = Post(
+        id = 0,
+        ownerId = 1,
+        fromId = 1,
+        createdBy = 1,
+        date = 1234,
+        text = "Text",
+        replyOwnerId = 4,
+        replyPostId = 5,
+        friendsOnly = false,
+        copyright = copyright,
+        reposts = reposts,
+        views = null,
+        postType = "post",
+        attachments = null,
+        signerId = 1,
+        canPin = true,
+        canDelete = true,
+        canEdit = true,
+        isPinned = false,
+        markedAsAds = false,
+        isFavorite = false,
+        postponedId = 0
     )
 
-    val firstPost = Post(
-        id = 1,
-        comments = firstComments,
-        likes = firstLikes,
-        reposts = firstReposts,
-        views = firstViews,
-        postType = PostType.POST,
-        attachment = null
-    )
+    val comment =
+        Comment(ownerId = 1, postId = 0, message = "Comment to the post", replyToComment = 0, stickerId = 0, guid = "")
 
     @Test
-    fun add() {
-        var test: Boolean = true
-        WallService.add(firstPost)
-        if (firstPost.id == 0) test = false
-        assertEquals(true, test)
+    fun addTest() {
+        val service = WallService()
+        service.add(post.copy(text = "Text 2"))
+        service.add(post.copy(text = "Text 3", views = Views()))
+        val testPost = post.copy(text = "New Text")
+        val result = service.add(testPost)
+        assertEquals(testPost.copy(id = 2), result)
     }
 
     @Test
-    fun updateRealID() {
-        WallService.add(firstPost)
-        assertEquals(true, WallService.update(firstPost))
+    fun updateTest() {
+        val service = WallService()
+        service.add(post)
+        service.add(post.copy(text = "Text 2"))
+        service.add(post.copy(text = "Text 3 ", reposts = reposts))
+        val update = post.copy(id = 2, text = "Text 3", copyright = copyright)
+        val result = service.update(update)
+        assertTrue(result)
     }
 
     @Test
-    fun updateNotRealID() {
-        val firstComments = Comments(
-            canPost = true
-        )
-        val firstLikes = Likes(
-            canLike = true
-        )
-        val firstReposts = Reposts()
-        val firstViews = Views(
-            count = 1
-        )
+    fun updateNotValidTest() {
+        val service = WallService()
+        service.add(post)
+        service.add(post.copy(text = "Text 2"))
+        service.add(post.copy(text = "Text 3 "))
+        val update = post.copy(id = 100, text = "New Text")
+        val result = service.update(update)
+        assertFalse(result)
+    }
 
-        val secondPost = Post(
-            id = 5,
-            comments = firstComments,
-            likes = firstLikes,
-            reposts = firstReposts,
-            views = firstViews,
-            postType = PostType.POST,
-            attachment = null
-        )
-        assertEquals(false, WallService.update(secondPost))
+    @Test(expected = PostNotFoundException::class)
+    fun shouldThrowTest() {
+        val service = WallService()
+        service.add(post)
+        service.add(post.copy(text = "Text 2"))
+        service.createComment(comment)
     }
 }
