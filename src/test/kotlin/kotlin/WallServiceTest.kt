@@ -19,7 +19,7 @@ class WallServiceTest {
         friendsOnly = false,
         copyright = copyright,
         reposts = reposts,
-        views = null,
+        views = views,
         postType = "post",
         attachments = null,
         signerId = 1,
@@ -33,7 +33,7 @@ class WallServiceTest {
     )
 
     val comment =
-        Comment(ownerId = 1, postId = 0, message = "Comment to the post", replyToComment = 0, stickerId = 0, guid = "")
+        Comment(ownerId = 1, postId = 2, message = "Comment to the post", replyToComment = 0, stickerId = 0, guid = "")
 
     @Test
     fun addTest() {
